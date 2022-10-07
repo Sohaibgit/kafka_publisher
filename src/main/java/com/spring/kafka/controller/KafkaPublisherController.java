@@ -12,11 +12,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/kafka")
-public class KafkaController {
+public class KafkaPublisherController {
 
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
-    public KafkaController(KafkaTemplate<String, Object> kafkaTemplate) {
+    public KafkaPublisherController(KafkaTemplate<String, Object> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
@@ -29,14 +29,9 @@ public class KafkaController {
 
     @GetMapping("/publish/object")
     public String publishObject(){
-        List<User> userList = new ArrayList<>();
-        userList.add(new User(1, "Sohaib", "Khan", new String[]{"Islamabad", "Lahore", "Karachi"}));
-        userList.add(new User(1, "Aslam", "Khan", new String[]{"Islamabad", "Faisalabad", "Karachi"}));
-        userList.add(new User(1, "Akram", "Khan", new String[]{"Islamabad", "Bahawalpur", "Karachi"}));
-        userList.add(new User(1, "Daniyal", "Khan", new String[]{"Islamabad", "Hyderabad", "Karachi"}));
-        userList.add(new User(1, "Saif", "Khan", new String[]{"Islamabad", "Taxila", "Karachi"}));
+        User user = new User(1, "Sohaib", "Khan", new String[]{"Islamabad", "Lahore", "Karachi"});
+        kafkaTemplate.send("mytopic1", user);
 
-        kafkaTemplate.send("mytopic1", userList);
         return "Data published successfully";
     }
 }
