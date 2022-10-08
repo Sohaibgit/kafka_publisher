@@ -10,7 +10,7 @@ listeners=PLAINTEXT://localhost:9092\
 D:/kafka/bin/windows -> kafka-server-start.bat D:/kafka/config/server.properties
 
 **Create Topic:**\
-kafka-topics.bat --create --zookeeper localhost:9092 --replication-factor 1 --partitions 1 --topic mytopic1
+kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic spring-cloud-topic
 
 **To List Topics:**\
 kafka-topics.bat --bootstrap-server localhost:9092 --list
